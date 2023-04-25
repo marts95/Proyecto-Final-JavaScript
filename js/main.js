@@ -11,8 +11,8 @@ const productos = [ { id: 1, titulo: "Facturas", img: "../fotos/facturastodas.jp
                     { id: 9, titulo: "Chipaquitos", img: "../fotos/chipaquitos.jpg", categoria: {nombre: "Salados", id: "salado"}, precio: 1600},
                     { id: 10, titulo: "Pan francés", img: "../fotos/panfrancés.jpg", categoria: {nombre: "Salados", id: "salado"}, precio: 500},
                     { id: 11, titulo: "Rosca de Pascua", img: "../fotos/rosca-pascua.jpg", categoria: {nombre: "Especialidades", id: "especialidad"}, precio: 2500},
-                    { id: 11, titulo: "Pan dulce", img: "../fotos/pandulce.jpg", categoria: {nombre: "Especialidades", id: "especialidad"}, precio: 2000},
-                    { id: 1, titulo: "Pan miga", img: "../fotos/panmiga.jpg", categoria: {nombre: "Especialidades", id: "especialidad"}, precio: 3500}];
+                    { id: 12, titulo: "Pan dulce", img: "../fotos/pandulce.jpg", categoria: {nombre: "Especialidades", id: "especialidad"}, precio: 2000},
+                    { id: 13, titulo: "Pan miga", img: "../fotos/panmiga.jpg", categoria: {nombre: "Especialidades", id: "especialidad"}, precio: 3500}];
 
 //****** Funciones ******//
 
@@ -40,11 +40,11 @@ function agregarProductos(productosElegidos) {
 
         contenidoProductos.append(div);
     })
-    actualizarBotones()
+
+    actualizarBotones();
 }
 
-agregarProductos(productos); //????????????????//
-
+agregarProductos(productos);
 
 function actualizarBotones(){
     botonesAñadir = document.querySelectorAll(".producto-añadir");
@@ -79,27 +79,42 @@ let productoEnCarrito;
 let productoEnCarritoLS = localStorage.getItem("producto-carrito");
 
 
-if (productoEnCarrritoLS){
+if (productoEnCarritoLS){
     productoEnCarrito = JSON.parse(productoEnCarritoLS);
     actualizarConteo();
 }else{
     productoEnCarrito = [];
 };
 
-function añadirCarrito(z){
-    const botonId = z.currentTarget.id;
-    const productoAñadido  = productos.find(producto => producto.id === botonId);
+// function añadirCarrito(z){
+//     const botonId = z.currentTarget.id;
+//     const productoAñadido  = productos.find(producto => producto.id === botonId);
 
-    if (productoEnCarrito.some(producto => producto.id === botonId)){
-        const indice = productoEnCarrito.findIndex(producto => producto.id === botonId);
-        productoEnCarrito[indice].cantidad++;
-    } else{
-        productoAñadido.cantidad = 1;
-        productoEnCarrito.push(productoAñadido);}
+//     if (productoEnCarrito.some(producto => producto.id === botonId)){
+//         const indice = productoEnCarrito.findIndex(producto => producto.id === botonId);
+//         productoEnCarrito[indice].cantidad++;
+//     } else{
+//         productoAñadido.cantidad = 1;
+//         productoEnCarrito.push(productoAñadido);
+//     }
         
-    actualizarConteo();
+//     actualizarConteo();
 
-    localStorage.setItem("productos-carrito", JSON.stringify(productoEnCarrito))
+//     localStorage.setItem("productos-carrito", JSON.stringify(productoEnCarrito));
+// }
+
+function añadirCarrito(){
+    if (productoAñadido){
+        if (productoEnCarrito.find(producto => producto.id === botonId)){
+            const indice = productoEnCarrito.findIndex(producto => producto.id === botonId);
+            productoEnCarrito[indice].cantidad++;
+        } else {
+            productoAñadido.cantidad = 1;
+            productoEnCarrito.push(productoAñadido);
+        }
+        actualizarConteo();
+        localStorage.setItem("productos-carrito", JSON.stringify(productoEnCarrito));
+    }
 }
 
 function actualizarConteo(){

@@ -15,6 +15,9 @@
 html {
   scroll-behavior: smooth;
 }
+html .desactivado {
+  display: none;
+}
 
 ul {
   list-style-type: none;
@@ -286,9 +289,6 @@ footer .redes i {
   border-radius: 20px;
   padding: 2rem;
 }
-.contenido .main-carrito .desactivado {
-  display: none;
-}
 .contenido .main-carrito .titulo-carrito {
   padding-block: 1rem;
   color: #c17767;
@@ -381,4 +381,4 @@ footer .redes i {
   text-transform: uppercase;
 }
 
-/*Fin de tienda y carrito*//*# sourceMappingURL=estilos.css.map */
+/*# sourceMappingURL=estilos.css.map */
