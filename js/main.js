@@ -55,15 +55,6 @@ botonesCategoria.forEach(boton => {
     })
 });
 
-function actualizarBotones(){
-    botonesAñadir = document.querySelectorAll(".producto-añadir");
-
-    botonesAñadir.forEach(boton => {
-        boton.addEventListener("click", añadirCarrito);
-    });
-}
-
-
 let productoEnCarrito;
 
 let productoEnCarritoLS = localStorage.getItem("producto-carrito");
@@ -76,40 +67,55 @@ if (productoEnCarritoLS){
     productoEnCarrito = [];
 }
 
-function añadirCarrito(){
 
+
+function agregarProductoACarrito(producto) {
+    
     Toastify({
         text: "Producto agregado al carrito",
         duration: 2000,
         gravity: "bottom", 
         stopOnFocus: true, 
         style: {
-          background: "#3d3d3d",
-          borderRadius: "1rem",
+            background: "#3d3d3d",
+            borderRadius: "1rem",
         },
         onClick: function(){} // Callback after click
-      }).showToast();
+    }).showToast();
 
-    const botonId = this.id;
-    const productoAñadido  = productos.find(producto => producto.id === botonId);
-
-    if (productoAñadido){
-        if (productoEnCarrito.find(producto => producto.id === botonId)){
-            const indice = productoEnCarrito.findIndex(producto => producto.id === botonId);
-            productoEnCarrito[indice].cantidad++;
-        } else {
-            productoAñadido.cantidad = 1;
-            productoEnCarrito.push(productoAñadido);
-        }
-        actualizarConteo();
-        localStorage.setItem("productos-carrito", JSON.stringify(productoEnCarrito))
+    if (productoEnCarrito.find(p => p.id === producto.id)) {
+        const indice = productoEnCarrito.findIndex(p => p.id === producto.id);
+        productoEnCarrito[indice].cantidad++;
+    } else {
+        producto.cantidad = 1;
+        productoEnCarrito.push(producto);
     }
+    
+    
+    actualizarConteoCarrito();
+    localStorage.setItem("producto-carrito", JSON.stringify(productoEnCarrito));
 }
 
-function actualizarConteo(){
-    let nuevoConteo = productoEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
+function actualizarConteoCarrito() {
+    const nuevoConteo = productoEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
     conteo.innerText = nuevoConteo;
 }
 
+function añadirCarrito() {
+    const botonId = this.id;
+    const productoAñadido = productos.find(producto => producto.id === botonId);
 
+    if (productoAñadido) {
+        agregarProductoACarrito(productoAñadido);
+    }
+}
 
+function actualizarBotones() {
+    botonesAñadir = document.querySelectorAll(".producto-añadir");
+
+    botonesAñadir.forEach(boton => {
+        boton.addEventListener("click", añadirCarrito);
+    });
+
+    actualizarConteoCarrito();
+}

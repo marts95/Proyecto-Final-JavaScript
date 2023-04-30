@@ -1,6 +1,3 @@
-productoEnCarrito = JSON.parse(productoEnCarrito) || [];
-let productoEnCarrito = localStorage.getItem("productos-carrito");
-
 const carritoVacio = document.querySelector("#carrito-vacio");
 const carritoProductos = document.querySelector("#productos-carrito");
 const carritoAcciones = document.querySelector("#carrito-acciones");
@@ -9,6 +6,8 @@ let botonesBorrar = document.querySelectorAll(".carrito-producto-borrar");
 const botonVaciar = document.querySelector("#acciones-vaciar");
 const total = document.querySelector("#total");
 const botonComprar = document.querySelector("#acciones-comprar");
+
+let productoEnCarrito = JSON.parse(localStorage.getItem("producto-carrito"));
 
 function agregarProductosCarrito(){
     if (productoEnCarrito && productoEnCarrito.length > 0){
