@@ -15,7 +15,8 @@
 html {
   scroll-behavior: smooth;
 }
-html .desactivado {
+
+.desactivado {
   display: none;
 }
 
@@ -379,6 +380,4 @@ footer .redes i {
   color: #d9d9db;
   font-weight: 800;
   text-transform: uppercase;
-}
-
-/*# sourceMappingURL=estilos.css.map */
+}/*# sourceMappingURL=estilos.css.map */

@@ -1,0 +1,132 @@
+[ 
+    {   
+        "id": 1, 
+        "titulo": "Facturas", 
+        "img": "../fotos/facturastodas.jpg", 
+        "categoria": {
+            "nombre": "Dulces", 
+            "id": "dulce"
+        }, 
+        "precio": 1100
+    },
+    { 
+        "id": 2, 
+        "titulo": "Tortas", 
+        "img": "../fotos/tortas.jpg", 
+        "categoria": {
+            "nombre": "Dulces", 
+            "id": "dulce"
+        }, 
+        "precio": 1500
+    },
+    { 
+        "id": 3, 
+        "titulo": "Alfajores", 
+        "img": "../fotos/alfajorescuadrado.jpg", 
+        "categoria": {
+            "nombre": "Dulces", 
+            "id": "dulce"
+        }, 
+        "precio": 1500
+    },
+    { 
+        "id": 4, 
+        "titulo": "Cupcakes", 
+        "img": "../fotos/cupcakes_choc.jpg", 
+        "categoria": {
+            "nombre": "Dulces", 
+            "id": "dulce"
+        }, 
+        "precio": 2500
+    },
+    { 
+        "id": 5, 
+        "titulo": "Pepitas", 
+        "img": "../fotos/pepitas.jpg", 
+        "categoria": {
+            "nombre": "Dulces", 
+            "id": "dulce"
+        }, 
+        "precio": 2200
+    },
+    { 
+        "id": 6, 
+        "titulo": "Cañoncitos", 
+        "img": "../fotos/cañoncitos.jpg", 
+        "categoria": {
+            "nombre": "Dulces", 
+            "id": "dulce"
+        }, 
+        "precio": 3500
+    },
+    { 
+        "id": 7, 
+        "titulo": "Galletas con chips", 
+        "img": "../fotos/galle_chips_choc.jpg", 
+        "categoria": {
+            "nombre": "Dulces", 
+            "id": "dulce"
+        }, 
+        "precio": 2200
+    },
+    { 
+        "id": 8, 
+        "titulo": "Bizcochos", 
+        "img": "../fotos/bizcosalados.jpg", 
+        "categoria": {
+            "nombre": "Salados", 
+            "id": "salado"
+        }, 
+        "precio": 1500
+    },
+    { 
+        "id": 9, 
+        "titulo": "Chipaquitos", 
+        "img": "../fotos/chipaquitos.jpg", 
+        "categoria": {
+            "nombre": "Salados", 
+            "id": "salado"
+        }, 
+        "precio": 1600
+    },
+    { 
+        "id": 10, 
+        "titulo": "Pan francés", 
+        "img": "../fotos/panfrancés.jpg", 
+        "categoria": {
+            "nombre": "Salados", 
+            "id": "salado"
+        }, 
+        "precio": 500
+    },
+    { 
+        "id": 11, 
+        "titulo": "Rosca de Pascua", 
+        "img": "../fotos/rosca-pascua.jpg", 
+        "categoria": {
+            "nombre": "Especialidades", 
+            "id": "especialidad"
+        }, 
+        "precio": 2500
+    },
+    { 
+        "id": 12, 
+        "titulo": "Pan dulce", 
+        "img": "../fotos/pandulce.jpg", 
+        "categoria": {
+            "nombre": "Especialidades", 
+            "id": "especialidad"
+        }, 
+        "precio": 2000
+    },
+    { 
+        "id": 13, 
+        "titulo": "Pan miga", 
+        "img": "../fotos/panmiga.jpg", 
+        "categoria": {
+            "nombre": "Especialidades", 
+            "id": "especialidad"
+        }, 
+        "precio": 3500
+    }
+]

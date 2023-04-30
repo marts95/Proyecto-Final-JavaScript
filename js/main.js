@@ -1,20 +1,11 @@
-//****** Productos ******//
+let productos = [];
 
-const productos = [ { id: 1, titulo: "Facturas", img: "../fotos/facturastodas.jpg", categoria: {nombre: "Dulces", id: "dulce"}, precio: 1100},
-                    { id: 2, titulo: "Tortas", img: "../fotos/tortas.jpg", categoria: {nombre: "Dulces", id: "dulce"}, precio: 1500},
-                    { id: 3, titulo: "Alfajores", img: "../fotos/alfajorescuadrado.jpg", categoria: {nombre: "Dulces", id: "dulce"}, precio: 1500},
-                    { id: 4, titulo: "Cupcakes", img: "../fotos/cupcakes_choc.jpg", categoria: {nombre: "Dulces", id: "dulce"}, precio: 2500},
-                    { id: 5, titulo: "Pepitas", img: "../fotos/pepitas.jpg", categoria: {nombre: "Dulces", id: "dulce"}, precio: 2200},
-                    { id: 6, titulo: "Cañoncitos", img: "../fotos/cañoncitos.jpg", categoria: {nombre: "Dulces", id: "dulce"}, precio: 3500},
-                    { id: 7, titulo: "Galletas con chips", img: "../fotos/galle_chips_choc.jpg", categoria: {nombre: "Dulces", id: "dulce"}, precio: 2200},
-                    { id: 8, titulo: "Bizcochos", img: "../fotos/bizcosalados.jpg", categoria: {nombre: "Salados", id: "salado"}, precio: 1500},
-                    { id: 9, titulo: "Chipaquitos", img: "../fotos/chipaquitos.jpg", categoria: {nombre: "Salados", id: "salado"}, precio: 1600},
-                    { id: 10, titulo: "Pan francés", img: "../fotos/panfrancés.jpg", categoria: {nombre: "Salados", id: "salado"}, precio: 500},
-                    { id: 11, titulo: "Rosca de Pascua", img: "../fotos/rosca-pascua.jpg", categoria: {nombre: "Especialidades", id: "especialidad"}, precio: 2500},
-                    { id: 12, titulo: "Pan dulce", img: "../fotos/pandulce.jpg", categoria: {nombre: "Especialidades", id: "especialidad"}, precio: 2000},
-                    { id: 13, titulo: "Pan miga", img: "../fotos/panmiga.jpg", categoria: {nombre: "Especialidades", id: "especialidad"}, precio: 3500}];
-
-//****** Funciones ******//
+fetch("../js/productos.json")
+    .then(respuesta => respuesta.json())
+    .then(info => {
+        productos = info;
+        agregarProductos(productos);
+    })
 
 const contenidoProductos = document.querySelector("#contenido-productos");
 const botonesCategoria = document.querySelectorAll(".boton-categ");
@@ -22,9 +13,10 @@ const tituloPrincipal = document.querySelector("#titulo-tienda");
 let botonesAñadir = document.querySelectorAll(".producto-añadir");
 const conteo = document.querySelector("#conteo");
 
+
 function agregarProductos(productosElegidos) {
 
-    contenidoProductos.innerHTML = "";
+    contenidoProductos.innerHTML = [];
 
     productosElegidos.forEach(producto => {
         const div = document.createElement("div");
@@ -44,16 +36,6 @@ function agregarProductos(productosElegidos) {
     actualizarBotones();
 }
 
-agregarProductos(productos);
-
-function actualizarBotones(){
-    botonesAñadir = document.querySelectorAll(".producto-añadir");
-
-    botonesAñadir.forEach(boton => {
-        boton.addEventListener("click", añadirCarrito);
-    })
-}
-
 botonesCategoria.forEach(boton => {
     boton.addEventListener("click", (z) => {
 
@@ -68,11 +50,19 @@ botonesCategoria.forEach(boton => {
             agregarProductos(productosFiltro);
         } else {
             tituloPrincipal.innerText = " Todos los productos";
-            agregarProductos(productos)
+            agregarProductos(productos);
         }
-
     })
 });
+
+function actualizarBotones(){
+    botonesAñadir = document.querySelectorAll(".producto-añadir");
+
+    botonesAñadir.forEach(boton => {
+        boton.addEventListener("click", añadirCarrito);
+    });
+}
+
 
 let productoEnCarrito;
 
@@ -84,26 +74,25 @@ if (productoEnCarritoLS){
     actualizarConteo();
 }else{
     productoEnCarrito = [];
-};
-
-// function añadirCarrito(z){
-//     const botonId = z.currentTarget.id;
-//     const productoAñadido  = productos.find(producto => producto.id === botonId);
-
-//     if (productoEnCarrito.some(producto => producto.id === botonId)){
-//         const indice = productoEnCarrito.findIndex(producto => producto.id === botonId);
-//         productoEnCarrito[indice].cantidad++;
-//     } else{
-//         productoAñadido.cantidad = 1;
-//         productoEnCarrito.push(productoAñadido);
-//     }
-        
-//     actualizarConteo();
-
-//     localStorage.setItem("productos-carrito", JSON.stringify(productoEnCarrito));
-// }
+}
 
 function añadirCarrito(){
+
+    Toastify({
+        text: "Producto agregado al carrito",
+        duration: 2000,
+        gravity: "bottom", 
+        stopOnFocus: true, 
+        style: {
+          background: "#3d3d3d",
+          borderRadius: "1rem",
+        },
+        onClick: function(){} // Callback after click
+      }).showToast();
+
+    const botonId = this.id;
+    const productoAñadido  = productos.find(producto => producto.id === botonId);
+
     if (productoAñadido){
         if (productoEnCarrito.find(producto => producto.id === botonId)){
             const indice = productoEnCarrito.findIndex(producto => producto.id === botonId);
@@ -113,12 +102,14 @@ function añadirCarrito(){
             productoEnCarrito.push(productoAñadido);
         }
         actualizarConteo();
-        localStorage.setItem("productos-carrito", JSON.stringify(productoEnCarrito));
+        localStorage.setItem("productos-carrito", JSON.stringify(productoEnCarrito))
     }
 }
 
 function actualizarConteo(){
-    let conteo = productoEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
-    conteo.innerText = conteo;
-
+    let nuevoConteo = productoEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
+    conteo.innerText = nuevoConteo;
 }
+
+
+
