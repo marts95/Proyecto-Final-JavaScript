@@ -68,7 +68,6 @@ if (productoEnCarritoLS){
 }
 
 
-
 function agregarProductoACarrito(producto) {
     
     Toastify({
@@ -80,7 +79,6 @@ function agregarProductoACarrito(producto) {
             background: "#3d3d3d",
             borderRadius: "1rem",
         },
-        onClick: function(){} // Callback after click
     }).showToast();
 
     if (productoEnCarrito.find(p => p.id === producto.id)) {
