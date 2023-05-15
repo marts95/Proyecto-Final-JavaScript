@@ -17,7 +17,7 @@
             <nav>
                 <ul class="menu">
                     <li>
-                        <a class= "boton-menu boton-volver" href="../pages/tienda.html"><i class="bi bi-caret-left-square"></i>Volver a la tienda</a>
+                        <a class= "boton-menu boton-volver" href="../index.html"><i class="bi bi-caret-left-square"></i>Volver a la tienda</a>
                     </li>
                     <li>
                         <a class= "boton-menu boton-carrito active"><i class="bi bi-cart4"></i>Carrito</a>
@@ -29,8 +29,9 @@
             <h2 class="titulo-carrito">Carrito</h2>
             <div class="contenido-carrito">
                 <p id="carrito-vacio" class="carrito-vacio">No hay productos agregados al carrito.</p>
-                <div id="productos-carrito" class="productos-carrito">
+                <div id="productos-carrito" class="productos-carrito desactivado">
                    <!-- Los productos los rellena JS -->
+                </div>
                 <div id="carrito-acciones" class="carrito-acciones desactivado">
                     <div class="acciones-izquierda">
                         <button id = "acciones-vaciar" class="acciones-vaciar">Vaciar carrito</button>
@@ -43,7 +44,7 @@
                         <button id= "acciones-comprar" class="acciones-comprar">Finalizar compra</button>
                     </div>
                 </div>
-                <p id="carrito-comprado" class="carrito-comprado">¡Muchas gracias por su compra!</p>
+                <p id="carrito-comprado" class="carrito-comprado desactivado">¡Muchas gracias por su compra!</p>
             </div>
         </main>
     </div>

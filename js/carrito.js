@@ -7,22 +7,19 @@ const botonVaciar = document.querySelector("#acciones-vaciar");
 const total = document.querySelector("#total");
 const botonComprar = document.querySelector("#acciones-comprar");
 
-let productoEnCarrito = JSON.parse(localStorage.getItem("producto-carrito"));
+function agregarProductosCarrito() {
+  if (productoEnCarrito.length > 0) {
+    carritoVacio.classList.add("desactivado");
+    carritoProductos.classList.remove("desactivado");
+    carritoAcciones.classList.remove("desactivado");
+    carritoComprado.classList.add("desactivado");
 
-function agregarProductosCarrito(){
-    if (productoEnCarrito && productoEnCarrito.length > 0){
+    carritoProductos.innerHTML = "";
 
-        carritoVacio.classList.add("desactivado");
-        carritoProductos.classList.remove("desactivado");
-        carritoAcciones.classList.remove("desactivado");
-        carritoComprado.classList.add("desactivado");
-    
-        carritoProductos.innerHTML = "";
-    
-        productoEnCarrito.forEach(producto => {
-            const div = document.createElement("div");
-            div.classList.add("carrito-producto");
-            div.innerHTML = `
+    productoEnCarrito.forEach((producto) => {
+      const div = document.createElement("div");
+      div.classList.add("carrito-producto");
+      div.innerHTML = `
             <img src="${producto.img}">
             <div class="carrito-producto-nombre">
                 <p>Nombre</p>
@@ -40,88 +37,97 @@ function agregarProductosCarrito(){
                 <p>Subtotal</p>
                 <h3>$${producto.precio * producto.cantidad}</h3>
             </div>
-            <button class="carrito-producto-borrar" id="${producto.id}"><i class="bi bi-trash"></i></button>
+            <button class="carrito-producto-borrar" id="${
+              producto.id
+            }"><i class="bi bi-trash"></i></button>
             `;
-    
-            carritoProductos.append(div);
-        })
-        
-        actualizarBotonesBorrar();
-        actualizarTotal();
-}
-    else {
-        carritoVacio.classList.remove("desactivado");
-        carritoProductos.classList.add("desactivado");
-        carritoAcciones.classList.add("desactivado");
-        carritoComprado.classList.add("desactivado");
-    
-    }
+
+      carritoProductos.append(div);
+    });
+
+    actualizarBotonesBorrar();
+    actualizarTotal();
+  } else {
+    carritoVacio.classList.remove("desactivado");
+    carritoProductos.classList.add("desactivado");
+    carritoAcciones.classList.add("desactivado");
+    carritoComprado.classList.add("desactivado");
+  }
 }
 
 agregarProductosCarrito();
 
+function actualizarBotonesBorrar() {
+  botonesBorrar = document.querySelectorAll(".carrito-producto-borrar");
 
-function actualizarBotonesBorrar(){
-    botonesBorrar = document.querySelectorAll(".carrito-producto-borrar");
-
-    botonesBorrar.forEach(boton => {
-        boton.addEventListener("click", eliminarCarrito);
-    });
+  botonesBorrar.forEach((boton) => {
+    boton.addEventListener("click", eliminarCarrito);
+  });
 }
 
-function eliminarCarrito(z){
+function eliminarCarrito(z) {
+  const botonId = z.currentTarget.id;
+  const indice = productoEnCarrito.findIndex(
+    (producto) => producto.id === botonId
+  );
 
-    const botonId = z.currentTarget.id;
-    const indice = productoEnCarrito.findIndex(producto => producto.id === botonId);
-
-    if (indice >= 0){
-        productoEnCarrito.splice(indice, 1);
-        agregarProductosCarrito();
-        localStorage.setItem("productos-carrito", JSON.stringify(productoEnCarrito));
-      }
+  if (indice >= 0) {
+    productoEnCarrito.splice(indice, 1);
+    agregarProductosCarrito();
+    localStorage.setItem(
+      "productos-carrito",
+      JSON.stringify(productoEnCarrito)
+    );
+  }
 }
 
 botonVaciar.addEventListener("click", vaciarCarrito);
-function vaciarCarrito(){
 
-    Swal.fire({
-        title: '¿Quieres continuar?',
-        text: 'Se eliminarán todos los productos de tu carrito.',
-        imageUrl: 'https://media.tenor.com/X73EqPfwAfIAAAAM/minion-any-questions-question.gif',
-        imageWidth: '400',
-        confirmButtonColor: '#c17767',
-        showCancelButton: true,
-        cancelButtonText: 'Cancelar',
-        cancelButtonColor: '#3d3d3d',
-        confirmButtonText: 'Afirmativo'
-    }).then((resultado) => {
-        if (resultado.isConfirmed){
-            Swal.fire(
-                '¡Vaciado!',
-                'Su carrito fue vaciado con éxito',
-                'success',
-                productoEnCarrito.lenght = 0,
-                localStorage.setItem("producto-carrito", JSON.stringify(productoEnCarrito)),
-                agregarProductosCarrito()
-              )
-            }
-          })
+function vaciarCarrito() {
+  Swal.fire({
+    title: "¿Quieres continuar?",
+    text: "Se eliminarán todos los productos de tu carrito.",
+    imageUrl:
+      "https://media.tenor.com/X73EqPfwAfIAAAAM/minion-any-questions-question.gif",
+    imageWidth: "400",
+    confirmButtonColor: "#c17767",
+    showCancelButton: true,
+    cancelButtonText: "Cancelar",
+    cancelButtonColor: "#3d3d3d",
+    confirmButtonText: "Afirmativo",
+  }).then((resultado) => {
+    if (resultado.isConfirmed) {
+        productoEnCarrito = [];
+        localStorage.setItem(
+          "productos-carrito",
+          JSON.stringify(productoEnCarrito)
+        );
+        agregarProductosCarrito();
+          Swal.fire(
+            "¡Vaciado!",
+            "Su carrito fue vaciado con éxito",
+            "success",
+          );
+            
+    }
+  });
 }
 
-function actulizarTotal(){
-    const totalFinal = productoEnCarrito.reduce((acc, producto => acc + (producto.precio * producto.cantidad)), 0);
-    total.innerText = `$${totalFinal}`;
-
+function actualizarTotal() {
+  const totalFinal = productoEnCarrito.reduce(
+    (acc, producto) => acc + producto.precio * producto.cantidad,
+    0
+  );
+  total.innerText = `$${totalFinal}`;
 }
 
 botonComprar.addEventListener("click", comprarCarrito);
-function comprarCarrito(){
+function comprarCarrito() {
+  productoEnCarrito.length = 0;
+  localStorage.setItem("producto-carrito", JSON.stringify(productoEnCarrito));
 
-    productoEnCarrito.lenght = 0;
-    localStorage.setItem("producto-carrito", JSON.stringify(productoEnCarrito));
-
-    carritoVacio.classList.add("desactivado");
-    carritoProductos.classList.add("desactivado");
-    carritoAcciones.classList.add("desactivado");
-    carritoComprado.classList.remove("desactivado");
+  carritoVacio.classList.add("desactivado");
+  carritoProductos.classList.add("desactivado");
+  carritoAcciones.classList.add("desactivado");
+  carritoComprado.classList.remove("desactivado");
 }

@@ -7,16 +7,16 @@ fetch("../js/productos.json")
         agregarProductos(productos);
     })
 
-const contenidoProductos = document.querySelector("#contenido-productos");
+const contenidoProductos = document.querySelector(".contenido-productos");
 const botonesCategoria = document.querySelectorAll(".boton-categ");
 const tituloPrincipal = document.querySelector("#titulo-tienda");
-let botonesAñadir = document.querySelectorAll(".producto-añadir");
-const conteo = document.querySelector("#conteo");
+let botonesAgregar = document.querySelectorAll("producto-agregar");
+const conteo = document.querySelector(".conteo");
 
 
 function agregarProductos(productosElegidos) {
 
-    contenidoProductos.innerHTML = [];
+    contenidoProductos.innerHTML = "";
 
     productosElegidos.forEach(producto => {
         const div = document.createElement("div");
@@ -26,11 +26,11 @@ function agregarProductos(productosElegidos) {
             <div class="producto-detalles">
                 <h3 class="producto-nombre">${producto.titulo}</h3>
                 <p class="producto-precio">$${producto.precio}</p>
-                <button class="producto-añadir" id="${producto.id}">Añadir a carrito</button>
+                <button class="producto-agregar" id="${producto.id}">Añadir a carrito</button>
             </div>
         `;
-
         contenidoProductos.append(div);
+
     })
 
     actualizarBotones();
@@ -55,14 +55,12 @@ botonesCategoria.forEach(boton => {
     })
 });
 
-let productoEnCarrito;
 
-let productoEnCarritoLS = localStorage.getItem("producto-carrito");
+let productoEnCarrito = JSON.parse(localStorage.getItem("productos-carrito"));
 
 
-if (productoEnCarritoLS){
-    productoEnCarrito = JSON.parse(productoEnCarritoLS);
-    actualizarConteo();
+if (productoEnCarrito){
+    actualizarConteoCarrito();
 }else{
     productoEnCarrito = [];
 }
@@ -91,7 +89,7 @@ function agregarProductoACarrito(producto) {
     
     
     actualizarConteoCarrito();
-    localStorage.setItem("producto-carrito", JSON.stringify(productoEnCarrito));
+    localStorage.setItem("productos-carrito", JSON.stringify(productoEnCarrito));
 }
 
 function actualizarConteoCarrito() {
@@ -99,20 +97,20 @@ function actualizarConteoCarrito() {
     conteo.innerText = nuevoConteo;
 }
 
-function añadirCarrito() {
+function agregarCarrito() {
     const botonId = this.id;
-    const productoAñadido = productos.find(producto => producto.id === botonId);
+    const productoAgregado = productos.find(producto => producto.id === parseInt(botonId));
 
-    if (productoAñadido) {
-        agregarProductoACarrito(productoAñadido);
+    if (productoAgregado) {
+        agregarProductoACarrito(productoAgregado);
     }
 }
 
 function actualizarBotones() {
-    botonesAñadir = document.querySelectorAll(".producto-añadir");
+    botonesAgregar = document.querySelectorAll(".producto-agregar");
 
-    botonesAñadir.forEach(boton => {
-        boton.addEventListener("click", añadirCarrito);
+    botonesAgregar.forEach(boton => {
+        boton.addEventListener("click", agregarCarrito);
     });
 
     actualizarConteoCarrito();

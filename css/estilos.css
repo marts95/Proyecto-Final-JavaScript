@@ -270,7 +270,7 @@ footer .redes i {
   color: #d9d9db;
   font-size: 20px;
 }
-.contenido .main-tienda .contenido-productos .producto-detalles .producto-añadir {
+.contenido .main-tienda .contenido-productos .producto-detalles .producto-agregar {
   background-color: #c17767;
   color: #d9d9db;
   border-radius: 15px;
@@ -281,7 +281,7 @@ footer .redes i {
   cursor: grab;
   transition: background-color 0.5s, color 0.5s;
 }
-.contenido .main-tienda .contenido-productos .producto-detalles .producto-añadir:hover {
+.contenido .main-tienda .contenido-productos .producto-detalles .producto-agregar:hover {
   border-color: #d9d9db;
   background-color: transparent;
 }
