@@ -11,7 +11,7 @@ const contenidoProductos = document.querySelector(".contenido-productos");
 const botonesCategoria = document.querySelectorAll(".boton-categ");
 const tituloPrincipal = document.querySelector("#titulo-tienda");
 let botonesAgregar = document.querySelectorAll("producto-agregar");
-const conteo = document.querySelector(".conteo");
+const conteo = document.querySelector("#conteo");
 
 
 function agregarProductos(productosElegidos) {
